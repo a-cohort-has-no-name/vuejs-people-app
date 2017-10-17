@@ -8,7 +8,7 @@
   </div>
   <div v-for="person in people">
     <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
-    <h3 v-if="person.bioVisible">{{ person.bio }}</h3>
+    <h3 v-bind:class="{strike: person.bioVisible}">{{ person.bio }}</h3>
     <button v-on:click="deletePerson(person)">Delete</button>
   </div>
 </div>
