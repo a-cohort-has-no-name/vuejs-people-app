@@ -8,9 +8,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
       newPersonBio: ''
     },
     mounted: function() {
-      $.get('/api/v1/people.json', function(result) {
-        this.people = result;
-      }.bind(this));
+      // $.get('/api/v1/people.json', function(result) {
+      //   this.people = result;
+      // }.bind(this));
+      Rails.ajax({
+        url: '/api/v1/people.json',
+        type: "GET",
+        success: function(response) {
+          this.people = response;
+        }.bind(this)
+      });
     },
     methods: {
       toggleBio: function(person) {
