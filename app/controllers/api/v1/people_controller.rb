@@ -10,10 +10,14 @@ class Api::V1::PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.create(
+    @person = Person.new(
       name: params[:name],
       bio: params[:bio]
     )
-    render 'show.json.jbuilder'
+    if @person.save
+      render 'show.json.jbuilder'
+    else
+      render json: { errors: @person.errors.full_messages }, status: 422
+    end
   end
 end

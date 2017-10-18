@@ -1,5 +1,9 @@
 <div id="app">
   <h4>Total number of people: {{ people.length }}</h4>
+
+  <ul>
+    <li v-for="error in errors">{{ error }}</li>
+  </ul>
   <h2>Add New Person:</h2>
   <div>
     Name: <input v-model="newPersonName">
