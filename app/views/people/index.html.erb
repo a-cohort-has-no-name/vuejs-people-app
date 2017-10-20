@@ -13,7 +13,8 @@
   </div>
   <!-- END NEW PERSON FORM -->
 
-  Filter by: <input v-model="nameFilter">
+  Filter by Name: <input v-model="nameFilter">
+  Filter by Bio: <input v-model="bioFilter">
   <!-- PEOPLE LOOP -->
   <div v-for="person in people" v-if="isValidPerson(person)">
     <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>

@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       newPersonName: '',
       newPersonBio: '',
       errors: [],
-      nameFilter: ''
+      nameFilter: '',
+      bioFilter: ''
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(result) {
@@ -49,7 +50,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
       },
       isValidPerson: function(person) {
-        return person.name.indexOf(this.nameFilter) > -1;
+        var validName = person.name.toLowerCase().indexOf(this.nameFilter.toLowerCase()) > -1;
+        var validBio = person.bio.toLowerCase().indexOf(this.bioFilter.toLowerCase()) > -1;
+        return validName && validBio;
       }
     },
     computed: {
