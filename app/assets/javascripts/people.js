@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       errors: [],
       nameFilter: '',
       bioFilter: '',
-      sortAttribute: 'name'
+      sortAttribute: 'name',
+      sortAscending: true
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(result) {
@@ -56,13 +57,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return validName && validBio;
       },
       setSortAttribute: function(inputAttribute) {
+        if(inputAttribute !== this.sortAttribute) {
+          this.sortAscending = true;
+        } else {
+          this.sortAscending = !this.sortAscending;
+        }
         this.sortAttribute = inputAttribute;
       }
     },
     computed: {
       modifiedPeople: function() {
         return this.people.sort(function(person1, person2) {
-          return person1[this.sortAttribute].localeCompare(person2[this.sortAttribute]);
+          if (this.sortAscending) {
+            return person1[this.sortAttribute].localeCompare(person2[this.sortAttribute]);
+          } else {
+            return person2[this.sortAttribute].localeCompare(person1[this.sortAttribute]);
+          }
         }.bind(this));
       }
     }
