@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       newPersonBio: '',
       errors: [],
       nameFilter: '',
-      bioFilter: ''
+      bioFilter: '',
+      sortAttribute: 'name'
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(result) {
@@ -53,10 +54,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var validName = person.name.toLowerCase().indexOf(this.nameFilter.toLowerCase()) > -1;
         var validBio = person.bio.toLowerCase().indexOf(this.bioFilter.toLowerCase()) > -1;
         return validName && validBio;
+      },
+      setSortAttribute: function(inputAttribute) {
+        this.sortAttribute = inputAttribute;
       }
     },
     computed: {
-
+      modifiedPeople: function() {
+        return this.people.sort(function(person1, person2) {
+          return person1[this.sortAttribute].localeCompare(person2[this.sortAttribute]);
+        }.bind(this));
+      }
     }
   });
 });

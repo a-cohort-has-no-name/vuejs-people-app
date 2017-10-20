@@ -13,6 +13,16 @@
   </div>
   <!-- END NEW PERSON FORM -->
 
+  <br>
+  <br>
+
+  <!-- SORTING BUTTONS -->
+  <div>
+    <button v-on:click="setSortAttribute('name')">Sort by Name</button>
+    <button v-on:click="setSortAttribute('bio')">Sort by Bio</button>
+  </div>
+  <!-- END SORTING BUTTONS -->
+
   <!-- FILTER INPUTS -->
   Filter by Name: <input v-model="nameFilter" list="names">
   Filter by Bio: <input v-model="bioFilter">
@@ -23,11 +33,21 @@
   
   <transition-group name="slide-left">  
     <!-- PEOPLE LOOP -->
-    <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+    <div v-for="person in modifiedPeople" v-if="isValidPerson(person)" v-bind:key="person.id">
       <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
       <h3 v-bind:class="{strike: person.bioVisible}">{{ person.bio }}</h3>
       <button v-on:click="deletePerson(person)">Delete</button>
     </div>
     <!-- END PEOPLE LOOP -->
   </transition-group>
+
 </div>
+
+
+
+
+
+
+
+
+
