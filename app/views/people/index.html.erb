@@ -20,12 +20,14 @@
   <datalist id="names">
     <option v-for="person in people">{{ person.name }}</option>
   </datalist>
-
-  <!-- PEOPLE LOOP -->
-  <div v-for="person in people" v-if="isValidPerson(person)">
-    <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
-    <h3 v-bind:class="{strike: person.bioVisible}">{{ person.bio }}</h3>
-    <button v-on:click="deletePerson(person)">Delete</button>
-  </div>
-  <!-- END PEOPLE LOOP -->
+  
+  <transition-group name="slide-left">  
+    <!-- PEOPLE LOOP -->
+    <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+      <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
+      <h3 v-bind:class="{strike: person.bioVisible}">{{ person.bio }}</h3>
+      <button v-on:click="deletePerson(person)">Delete</button>
+    </div>
+    <!-- END PEOPLE LOOP -->
+  </transition-group>
 </div>
