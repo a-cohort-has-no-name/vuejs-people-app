@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       people: [],
       newPersonName: '',
       newPersonBio: '',
-      errors: []
+      errors: [],
+      nameFilter: ''
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(result) {
@@ -39,7 +40,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
       },
       deletePerson: function(person) {
         var index = this.people.indexOf(person);
-        this.people.splice(index, 1);
+        $.ajax({
+          url: '/api/v1/people/'+person.id,
+          type: 'DELETE',
+          success: function(response) {
+            this.people.splice(index, 1);
+          }.bind(this)
+        });
+      },
+      isValidPerson: function(person) {
+        return person.name.indexOf(this.nameFilter) > -1;
       }
     },
     computed: {

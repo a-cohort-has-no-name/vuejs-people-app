@@ -20,4 +20,10 @@ class Api::V1::PeopleController < ApplicationController
       render json: { errors: @person.errors.full_messages }, status: 422
     end
   end
+
+  def destroy
+    @person = Person.find(params[:id])
+    @person.destroy
+    render json: { message: 'successfully destroyed' }
+  end
 end
